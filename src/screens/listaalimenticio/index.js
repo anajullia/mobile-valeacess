@@ -1,114 +1,118 @@
-import React, { useEffect, useState } from 'react';
-import { styles } from './style';
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
+import { styles } from "./style";
+import { Ionicons } from "@expo/vector-icons";
 import {
-    SafeAreaView,
-    Text,
-    View,
-    ScrollView,
-    TouchableOpacity,
-    Image,
-    ActivityIndicator,
-    RefreshControl,
-    StatusBar,
-    Alert,
-} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import Load from '../../components/Load';
-import { DrawerActions, useNavigation } from '@react-navigation/core';
-import api from '../../../services/api';
-import { Ionicons } from '@expo/vector-icons';
-import { useIsFocused } from '@react-navigation/native';
+  TouchableOpacity,
+  View,
+  Text,
+  TextInput,
+  Image,
+  ScrollView,
+  Alert,
+} from "react-native";
+
+import api from "../../../services/api";
+
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ListaAlimenticio() {
-    const navigation = useNavigation();
-    const isFocused = useIsFocused();
+  const [user, setUser] = useState(null);
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [dados, setDados] = useState([]);
 
-    const [dados, setDados] = useState([]);  // Ensure this starts as an array
-    const [total, setTotal] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [refreshing, setRefreshing] = useState(false);
+  const checkLogin = async () => {
+    const userData = await AsyncStorage.getItem("@user");
 
-    async function totalDadosCadastrados() {
-        try {
-            const res = await api.get('apivaleacess/listar-cards-alimenticios.php');
-            setTotal(res.data);
-        } catch (error) {
-            console.log('Erro ao buscar total:', error);
-        }
+    if (!userData) {
+      Alert.alert(
+        "Atenção",
+        "Você precisa estar logado para acessar esta tela."
+      );
+      navigation.navigate("Login"); // Redireciona para a tela de login se não estiver logado
+    } else {
+      setUser(JSON.parse(userData)); // Armazena os dados do usuário logado
     }
+  };
 
-    async function listarDados() {
-        try {
-            const res = await api.get('apivaleacess/buscar-alimenticios.php');
-            if (Array.isArray(res.data.result)) {  // Ensure that it's an array
-                setDados(res.data.result);
-            } else {
-                setDados([]);  // If result is not an array, default to empty array
-            }
-        } catch (error) {
-            console.log('Erro ao Listar', error);
-        } finally {
-            setIsLoading(false);
-            setRefreshing(false);
-        }
+  async function totalDadosCadastrados() {
+    try {
+      const res = await api.get("apivaleacess/listar-cards-alimenticios.php");
+      setTotal(res.data);
+    } catch (error) {
+      console.log("Erro ao buscar total:", error);
     }
+  }
 
-    useEffect(() => {
-        listarDados();
-        totalDadosCadastrados();
-    }, [isFocused]);
+  async function listarDados() {
+    try {
+      const res = await api.get("apivaleacess/buscar-alimenticios.php");
+      if (Array.isArray(res.data.result)) {
+        // Ensure that it's an array
+        setDados(res.data.result);
+      } else {
+        setDados([]); // If result is not an array, default to empty array
+      }
+    } catch (error) {
+      console.log("Erro ao Listar", error);
+    } finally {
+      setIsLoading(false);
+      setRefreshing(false);
+    }
+  }
 
-    const onRefresh = () => {
-        setRefreshing(true);
-        listarDados();
-    };
+  useEffect(() => {
+    listarDados();
+    totalDadosCadastrados();
+  }, [isFocused]);
 
-    return (
-        <View style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" />
-            <View style={{ flex: 1 }}>
-                <View style={styles.header}>
-                    <View style={styles.containerHeader}>
-                        <TouchableOpacity
-                            style={styles.menu}
-                            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-                        >
-                            <MaterialIcons name="menu" size={35} color="black" />
-                        </TouchableOpacity>
-                        <Image style={styles.logo} source={require('../../../assets/logo2.png')} />
-                    </View>
-                </View>
+  const onRefresh = () => {
+    setRefreshing(true);
+    listarDados();
+    checkLogin();
+  };
 
-                {isLoading ? (
-                    <Load />
-                ) : (
-                    <ScrollView
-                        style={{ flex: 1 }}
-                        showsVerticalScrollIndicator={false}
-                        nestedScrollEnabled={true}
-                        refreshControl={
-                            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                        }
-                    >
-                        <View style={styles.containerBox}>
-                            <Text style={styles.title}>APLICATIVO BOLA BOLA Sua Central de Futebol</Text>
-                            <Ionicons name="football" size={50} color="black" style={{ marginLeft: 140 }} />
-                        </View>
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scroll}>
+        <TouchableOpacity
+          style={styles.iconvoltar}
+          onPress={() => navigation.pop("1")}
+        >
+          <Ionicons name="arrow-back" size={50} color="#1C88C9" />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.searchbar}
+          placeholderTextColor={"#B4BBB4"}
+          placeholder="Procure aqui"
+        />
+        <Ionicons
+          name="search-sharp"
+          size={25}
+          color="#7b7b7b"
+          style={styles.iconsearch}
+        />
 
-                        <Text style={styles.subtitulo}>Seus cadastros de torcedor:</Text>
-
-                        {Array.isArray(dados) && dados.length > 0 ? (
-                            dados.map((item) => (
-                                <View style={styles.griditem} key={item.comercio_id}>
-                                    <Text style={{ color: '#585858' }}>{item.comercio_id} - {item.nome} - {item.cidade} - {item.categoria}</Text>
-                                </View>
-                            ))
-                        ) : (
-                            <Text style={{ color: '#585858' }}>Nenhum dado encontrado.</Text>
-                        )}
-                    </ScrollView>
-                )}
+        {Array.isArray(dados) && dados.length > 0 ? (
+          dados.map((item) => (
+            <View style={styles.griditem} key={item.comercio_id}>
+              <TouchableOpacity
+                style={[styles.item, styles.item1]}
+                onPress={() => navigation.navigate("telaBolinha")}
+              >
+                <Text style={styles.nomeitem}>{item.nome}</Text>
+                <Ionicons name="star" size={17} style={styles.iconsitem} />
+                <Text style={styles.categoriaitem}>{item.categoria}</Text>
+              </TouchableOpacity>
             </View>
-        </View>
-    );
+          ))
+        ) : (
+          <Text style={{ color: "#585858" }}>Nenhum dado encontrado.</Text>
+        )}
+      </ScrollView>
+    </View>
+  );
 }

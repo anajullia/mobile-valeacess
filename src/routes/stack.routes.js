@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthRoutes from './tab.routes';
 
 import Cadastro from '../screens/cadastro';
-import telaBolinha from '../screens/telaBolinha';
+import Comercio from '../screens/comercio';
 import ListaAlimenticio from '../screens/listaalimenticio';
 import Login from '../screens/Login';
 import Mapa from '../screens/mapa';
@@ -29,7 +29,7 @@ function StackNavigator(){
             <Stack.Screen name="Cadastro" component={Cadastro} />
             <Stack.Screen name="Mapa" component={Mapa} />
             <Stack.Screen name="ListaAlimenticio" component={ListaAlimenticio} />
-            <Stack.Screen name="telaBolinha" component={telaBolinha} />
+            <Stack.Screen name="Comercio" component={Comercio} />
             <Stack.Screen name="Avaliar" component={Avaliar} />
             <Stack.Screen name="Denunciar" component={Denunciar} />
             <Stack.Screen name="Alimenticios" component={Alimenticios} />

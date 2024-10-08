@@ -40,6 +40,7 @@ export default function NovoUsuario() {
 
     try {
       const obj = {
+                cpf: cpf,
                 nome: nome,    
                 deficiencia: deficiencia,          
                 email: email,

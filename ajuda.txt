@@ -1,0 +1,59 @@
+NA TELA QUE VAI PASSAR O ID
+
+    {dados.map(item => (  
+                                                                
+         <View style={styles.griditem} key={item.id}><Text style={{color: '#585858'}}>{item.id}</Text>          
+        <TouchableOpacity style={styles.gridbotaoEditar}
+             onPress={() => getItem(item.id)} >
+               <Ionicons name="create-outline" size={30} color="#50b9e1"></Ionicons>
+        </TouchableOpacity> 
+
+
+    async function getItem(id){
+        navigation.navigate("Cadastro", {id:id})
+    }
+
+
+NA TELA QUE VAI RECEBER O VALOR
+
+//NO NOME DA TELA ACRESCENTE FC = ({route})
+
+const Cadastro = FC = ({route}) => {   
+
+
+//NA FUNÇÃO QUE VAI CHAMAR O PHP COLOCA O ID REBENDO O PARAMETRO
+async function editar() {             
+        const {id} = route.params;
+}
+
+
+
+    const[cidade, setCidade] = useState("");
+    const[estado,setEstado] = useState("");
+    const[transporte,setTransporte] = useState("");
+
+
+    async function buscarDados() {
+        const {id} = route.params;
+        const res = await api.get('appBD/buscarId.php?id=' + id);
+        limparCampos();
+        setCidade(res.data.cidade);
+        setEstado(res.data.estado);
+        setTransporte(res.data.transporte);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

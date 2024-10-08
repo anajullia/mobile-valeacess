@@ -96,16 +96,18 @@ export default function ListaAlimenticio() {
           style={styles.iconsearch}
         />
 
+
         {Array.isArray(dados) && dados.length > 0 ? (
           dados.map((item) => (
             <View style={styles.griditem} key={item.comercio_id}>
               <TouchableOpacity
                 style={[styles.item, styles.item1]}
-                onPress={() => navigation.navigate("telaBolinha")}
+                onPress={() => navigation.navigate("telaBolinha", {id:comercio_id})}
               >
                 <Text style={styles.nomeitem}>{item.nome}</Text>
                 <Ionicons name="star" size={17} style={styles.iconsitem} />
                 <Text style={styles.categoriaitem}>{item.categoria}</Text>
+                <Text style={styles.categoriaitem}>{item.cidade} - {item.rua}</Text>
               </TouchableOpacity>
             </View>
           ))

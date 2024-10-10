@@ -102,7 +102,7 @@ export default function ListaAlimenticio() {
             <View style={styles.griditem} key={item.comercio_id}>
               <TouchableOpacity
                 style={[styles.item, styles.item1]}
-                onPress={() => navigation.navigate("telaBolinha", {id:comercio_id})}
+                onPress={() => navigation.navigate("ComercioAlimenticio", {id: item.comercio_id})}
               >
                 <Text style={styles.nomeitem}>{item.nome}</Text>
                 <Ionicons name="star" size={17} style={styles.iconsitem} />

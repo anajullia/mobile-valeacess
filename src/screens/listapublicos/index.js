@@ -40,7 +40,7 @@ export default function ListaAlimenticio() {
 
   async function totalDadosCadastrados() {
     try {
-      const res = await api.get("apivaleacess/listar-cards-alimenticios.php");
+      const res = await api.get("apivaleacess/listar-cards-publicos.php");
       setTotal(res.data);
     } catch (error) {
       console.log("Erro ao buscar total:", error);
@@ -49,7 +49,7 @@ export default function ListaAlimenticio() {
 
   async function listarDados() {
     try {
-      const res = await api.get("apivaleacess/buscar-alimenticios.php");
+      const res = await api.get("apivaleacess/buscar-publicos.php");
       if (Array.isArray(res.data.result)) {
         // Ensure that it's an array
         setDados(res.data.result);
@@ -103,7 +103,7 @@ export default function ListaAlimenticio() {
               <TouchableOpacity
                 style={[styles.item, styles.item1]}
                 onPress={() => navigation.navigate("ComercioAlimenticio", { id: item.comercio_id })} // Passando o ID do comércio
-              > 
+              >
                 <Text style={styles.nomeitem}>{item.nome}</Text>
                 <Ionicons name="star" size={17} style={styles.iconsitem} />
                 <Text style={styles.categoriaitem}>{item.categoria}</Text>

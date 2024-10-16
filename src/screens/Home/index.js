@@ -69,13 +69,8 @@ export default function Home() {
             <Ionicons name="arrow-back" size={50} color="#1C88C9" />
           </TouchableOpacity>
           
-            <TextInput
-                style={styles.searchbar}
-                placeholderTextColor={'#B4BBB4'}
-                placeholder="Procure aqui"
-                // colocar value e onchangetext
-            />
-            <Ionicons name="search-sharp" size={25} color="#7b7b7b" style={styles.iconsearch} />
+            
+            
             <View style={styles.containergrid}>
                 <View style={styles.row}>
 
@@ -84,7 +79,7 @@ export default function Home() {
                     <Text style={styles.textobotao}>Alimentícios</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("ListaVendas")}>
                     <Ionicons name="basket-sharp" size={80} color="#F3FBFF" style={styles.iconbotao} />
                     <Text style={styles.textobotao}>Vendas Variadas</Text>
                     </TouchableOpacity>
@@ -93,7 +88,7 @@ export default function Home() {
 
                 <View style={styles.row}>
 
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("ListaPublico")}>
                     <Ionicons name="business-sharp" size={80} color="#F3FBFF" style={styles.iconbotao} />
                     <Text style={styles.textobotao}>Prédios Públicos</Text>
                     </TouchableOpacity>

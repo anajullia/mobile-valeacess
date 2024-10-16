@@ -5,7 +5,8 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  Image
+  Image,
+  ActivityIndicator, // Indicador de carregamento
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
@@ -17,38 +18,57 @@ const ComercioAlimenticio = ({ route }) => {
   const isFocused = useIsFocused();
   const { id } = route.params; // Pegando o comercio_id da navegação
   const [comercio, setComercio] = useState(null); // Armazenar os dados do comércio
+  const [loading, setLoading] = useState(true); // Controle de carregamento
 
   // Função para buscar os dados do comércio específico
   async function buscarComercio() {
     try {
-      const res = await api.get(`apivaleacess/buscar-comercio.php?id=${id}`); // Fazendo a requisição passando o ID do comércio
-      if (res.data.success) {
-        setComercio(res.data.result); // Armazenando os dados do comércio
-      } else {
-        console.log("Nenhum dado encontrado.");
-      }
+        setLoading(true);
+        const res = await api.get(`apivaleacess/buscar-comercio.php?id=${id}`);
+        console.log("Resposta da API:", res.data); // Log da resposta
+        if (res.data.success) {
+            setComercio(res.data.result);
+            console.log("Dados do comércio:", res.data.result); // Log dos dados
+        } else {
+            console.log("Nenhum dado encontrado.");
+        }
     } catch (error) {
-      console.log("Erro ao buscar comércio", error);
+        console.log("Erro ao buscar comércio", error);
+    } finally {
+        setLoading(false);
     }
-  }
+}
+
 
   useEffect(() => {
     if (isFocused) {
+      console.log(id); // Verifique se o ID está sendo passado corretamente
       buscarComercio(); // Buscar os dados ao carregar a tela
     }
   }, [isFocused]);
 
+  // Se os dados ainda estão sendo carregados, exibe um indicador de carregamento
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#1C88C9" />
+        <Text>Carregando dados...</Text>
+      </View>
+    );
+  }
+
+  // Se os dados não forem encontrados
   if (!comercio) {
-    return <Text>Carregando...</Text>; // Exibe uma mensagem enquanto os dados são carregados
+    return <Text>Nenhum comércio encontrado.</Text>;
   }
 
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.imageContainer}>
-          <Image style={styles.imagemcomercio} source={require('../../assets/comendo.jpg')} />
+          <Image style={styles.imagemcomercio} source={require('../../assets/humanos.png')} />
           <View style={styles.overlayimagemcomercio} />
-          <TouchableOpacity style={styles.iconvoltar} onPress={() => navigation.pop("1")}>
+          <TouchableOpacity style={styles.iconvoltar} onPress={() => navigation.pop()}>
             <Ionicons name="arrow-back" size={50} color="#1C88C9" />
           </TouchableOpacity>
         </View>

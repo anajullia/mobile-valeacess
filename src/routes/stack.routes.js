@@ -8,7 +8,7 @@ import ListaVendas from '../screens/listavendas';
 import ListaPublicos from '../screens/listapublicos';
 import Login from '../screens/Login';
 import Mapa from '../screens/mapa';
-import ComercioAlimenticio from '../screens/telaBolinha';
+import ComercioAlimenticio from '../screens/comercio';
 import Saiba from '../screens/saiba_mais';
 import Avaliar from '../screens/avaliar';
 import Denunciar from '../screens/denuncia';

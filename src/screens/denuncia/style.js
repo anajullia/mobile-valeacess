@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
 
   titulo: {
     fontSize: 24,
-    color: '#1C88C9',
+    color: 'white',
     fontFamily: 'Rubik',
     alignSelf: 'center',
     position: 'absolute',
@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
 
   legenda: {
     fontSize: 16,
-    color: "#1C88C9",
+    color: "white",
     fontFamily: "Rubik",
     alignSelf: "flex-start",
     marginBottom: 5,

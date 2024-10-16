@@ -110,7 +110,7 @@ export default function Avaliar() {
       >
         <Ionicons name="arrow-back" size={50} color="#1C88C9" />
       </TouchableOpacity>
-      <Text style={styles.titulo}>Avaliação de restaurante</Text>
+      <Text style={styles.titulo}>Denúncia de restaurante</Text>
 
       <View style={styles.content}>
         <View style={styles.categoryWrapper}>

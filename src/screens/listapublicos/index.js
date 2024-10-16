@@ -49,18 +49,14 @@ export default function ListaAlimenticio() {
 
   async function listarDados() {
     try {
-      const res = await api.get("apivaleacess/buscar-publicos.php");
+      const res = await api.get("apivaleacess/buscar-alimenticios.php");
       if (Array.isArray(res.data.result)) {
-        // Ensure that it's an array
         setDados(res.data.result);
       } else {
-        setDados([]); // If result is not an array, default to empty array
+        setDados([]); // Se o resultado não for um array, define como array vazio
       }
     } catch (error) {
-      console.log("Erro ao Listar", error);
-    } finally {
-      setIsLoading(false);
-      setRefreshing(false);
+      console.log("Erro ao Listar:", error);
     }
   }
 

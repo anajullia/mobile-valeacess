@@ -84,23 +84,31 @@ const ComercioAlimenticio = ({ route }) => {
 
         <View style={styles.paper}>
           <Text style={styles.nomecomercio}>{comercio.nome}</Text>
-          <Text style={styles.categoriacomercio}>{comercio.cidade}</Text>
-          <Text style={styles.enderecocomercio}>{comercio.rua}</Text>
-          <Text style={styles.enderecocomercio}>{comercio.numero}</Text>
+          <Text style={styles.categoriacomercio}>{comercio.cidade}, Rua {comercio.rua}, Número {comercio.numero}</Text>
 
           <Text style={styles.avaliacoes}>Últimas avaliações:</Text>
           {avaliacoes && avaliacoes.length > 0 ? (
             avaliacoes.map((avaliacao, index) => (
               <View key={index} style={styles.review}>
                 <Ionicons name="person-circle" size={30} color="#1C88C9" />
-                <Text style={styles.reviewname}>{avaliacao.avalia_visual}</Text>
-                
+                <Text style={styles.reviewname}>
+                  Média: {((avaliacao.avalia_visual + avaliacao.avalia_fisica + avaliacao.avalia_auditiva) / 3).toFixed(2)}
+                </Text>
+                <Text style={styles.reviewfeedback}>{avaliacao.feedback}</Text>
               </View>
             ))
           ) : (
             <Text style={{ color: "#585858" }}>Nenhuma avaliação encontrada.</Text>
           )}
         </View>
+
+        <TouchableOpacity style={styles.botaoreview} onPress={() => navigation.navigate("Denunciar")}>
+            <Text style={styles.textobotaoreview}>Faça sua denúncia</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.botaoreview2} onPress={() => navigation.navigate("Avaliar")}>
+            <Text style={styles.textobotaoreview}>Faça sua review</Text>
+          </TouchableOpacity>
       </ScrollView>
     </View>
   );

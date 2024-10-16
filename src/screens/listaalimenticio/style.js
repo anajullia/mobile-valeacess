@@ -108,5 +108,10 @@ export const styles = StyleSheet.create({
         top: 27,
         color: '#F3FBFF',
         fontFamily: 'Rubik'
-    }
+    },
+
+    itemlista: {
+      width:200,
+      marginTop:50
+  }
 });

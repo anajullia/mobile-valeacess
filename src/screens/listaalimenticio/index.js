@@ -74,23 +74,26 @@ export default function ListaAlimenticio() {
           style={styles.iconsearch}
         />
 
-        {Array.isArray(dados) && dados.length > 0 ? (
-          dados.map((item) => (
-            <View style={styles.griditem} key={item.comercio_id}>
-              <TouchableOpacity
-                style={[styles.item, styles.item1]}
-                onPress={() => navigation.navigate("ComercioAlimenticio", { id: item.comercio_id })} // Passando o ID do comércio
-              >
-                <Text style={styles.nomeitem}>{item.nome}</Text>
-                <Ionicons name="star" size={17} style={styles.iconsitem} />
-                <Text style={styles.categoriaitem}>{item.categoria}</Text>
-                <Text style={styles.categoriaitem}>{item.cidade} - {item.rua}</Text>
-              </TouchableOpacity>
-            </View>
-          ))
-        ) : (
-          <Text style={{ color: "#585858" }}>Nenhum dado encontrado.</Text>
-        )}
+        <View style={styles.itemlista}>
+          {Array.isArray(dados) && dados.length > 0 ? (
+            dados.map((item) => (
+              <View style={styles.griditem} key={item.comercio_id}>
+                <TouchableOpacity
+                  style={[styles.item, styles.item1]}
+                  onPress={() => navigation.navigate("ComercioAlimenticio", { id: item.comercio_id })} // Passando o ID do comércio
+                >
+                  <Text style={styles.nomeitem}>{item.nome}</Text>
+                  <Ionicons name="star" size={17} style={styles.iconsitem} /> 
+                  <Text style={styles.categoriaitem}>{item.media_total}</Text>
+                  <Text style={styles.categoriaitem}>Tipo: {item.categoria}</Text>
+                  <Text style={styles.categoriaitem}>Endereço: {item.cidade} - {item.rua}</Text>
+                </TouchableOpacity>
+              </View>
+            ))
+          ) : (
+            <Text style={{ color: "#585858" }}>Nenhum dado encontrado.</Text>
+          )}
+        </View>
       </ScrollView>
     </View>
   );

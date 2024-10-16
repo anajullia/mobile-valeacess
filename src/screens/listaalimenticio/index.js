@@ -7,14 +7,11 @@ import {
   View,
   Text,
   TextInput,
-  Image,
   ScrollView,
   Alert,
 } from "react-native";
 
 import api from "../../../services/api";
-
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -38,42 +35,23 @@ export default function ListaAlimenticio() {
     }
   };
 
-  async function totalDadosCadastrados() {
-    try {
-      const res = await api.get("apivaleacess/listar-cards-alimenticios.php");
-      setTotal(res.data);
-    } catch (error) {
-      console.log("Erro ao buscar total:", error);
-    }
-  }
-
   async function listarDados() {
     try {
       const res = await api.get("apivaleacess/buscar-alimenticios.php");
       if (Array.isArray(res.data.result)) {
-        // Ensure that it's an array
         setDados(res.data.result);
       } else {
-        setDados([]); // If result is not an array, default to empty array
+        setDados([]); // Se o resultado não for um array, define como array vazio
       }
     } catch (error) {
-      console.log("Erro ao Listar", error);
-    } finally {
-      setIsLoading(false);
-      setRefreshing(false);
+      console.log("Erro ao Listar:", error);
     }
   }
 
   useEffect(() => {
-    listarDados();
-    totalDadosCadastrados();
+    checkLogin(); // Verifica o login ao entrar na tela
+    listarDados(); // Lista os dados
   }, [isFocused]);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    listarDados();
-    checkLogin();
-  };
 
   return (
     <View style={styles.container}>
@@ -96,20 +74,18 @@ export default function ListaAlimenticio() {
           style={styles.iconsearch}
         />
 
-
         {Array.isArray(dados) && dados.length > 0 ? (
           dados.map((item) => (
             <View style={styles.griditem} key={item.comercio_id}>
               <TouchableOpacity
                 style={[styles.item, styles.item1]}
                 onPress={() => navigation.navigate("ComercioAlimenticio", { id: item.comercio_id })} // Passando o ID do comércio
-              > 
+              >
                 <Text style={styles.nomeitem}>{item.nome}</Text>
                 <Ionicons name="star" size={17} style={styles.iconsitem} />
                 <Text style={styles.categoriaitem}>{item.categoria}</Text>
                 <Text style={styles.categoriaitem}>{item.cidade} - {item.rua}</Text>
               </TouchableOpacity>
-
             </View>
           ))
         ) : (

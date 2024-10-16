@@ -6,48 +6,59 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  ActivityIndicator, // Indicador de carregamento
+  ActivityIndicator,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { useIsFocused } from '@react-navigation/native';
-import api from "../../../services/api";
+import api from '../../../services/api';
 
 const ComercioAlimenticio = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const { id } = route.params; // Pegando o comercio_id da navegação
-  const [comercio, setComercio] = useState(null); // Armazenar os dados do comércio
-  const [loading, setLoading] = useState(true); // Controle de carregamento
+  const { id } = route.params;
+  const [comercio, setComercio] = useState(null);
+  const [avaliacoes, setAvaliacoes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Função para buscar os dados do comércio específico
-  async function buscarComercio() {
+  const buscarComercio = async () => {
     try {
-        setLoading(true);
-        const res = await api.get(`apivaleacess/buscar-comercio.php?id=${id}`);
-        console.log("Resposta da API:", res.data); // Log da resposta
-        if (res.data.success) {
-            setComercio(res.data.result);
-            console.log("Dados do comércio:", res.data.result); // Log dos dados
-        } else {
-            console.log("Nenhum dado encontrado.");
-        }
+      const res = await api.get(`apivaleacess/buscar-comercio.php?id=${id}`);
+      if (res.data.success) {
+        setComercio(res.data.result);
+      } else {
+        console.log("Nenhum dado encontrado.");
+      }
     } catch (error) {
-        console.log("Erro ao buscar comércio", error);
+      console.log("Erro ao buscar comércio", error);
     } finally {
-        setLoading(false);
+      setLoading(false); // Atualiza o estado de loading após a requisição
     }
-}
+  };
 
+  const buscarAvaliacoes = async () => {
+    try {
+      const res = await api.get(`apivaleacess/buscar-avaliacoes.php?id=${id}`);
+      if (res.data.success) {
+        setAvaliacoes(res.data.result);
+      } else {
+        console.log("Nenhuma avaliação encontrada.");
+      }
+    } catch (error) {
+      console.log("Erro ao buscar avaliações", error);
+    } finally {
+      setLoading(false); // Atualiza o estado de loading após a requisição
+    }
+  };
 
   useEffect(() => {
     if (isFocused) {
-      console.log(id); // Verifique se o ID está sendo passado corretamente
-      buscarComercio(); // Buscar os dados ao carregar a tela
+      setLoading(true); // Inicia o carregamento
+      buscarComercio();
+      buscarAvaliacoes();
     }
   }, [isFocused]);
 
-  // Se os dados ainda estão sendo carregados, exibe um indicador de carregamento
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -57,7 +68,6 @@ const ComercioAlimenticio = ({ route }) => {
     );
   }
 
-  // Se os dados não forem encontrados
   if (!comercio) {
     return <Text>Nenhum comércio encontrado.</Text>;
   }
@@ -67,42 +77,24 @@ const ComercioAlimenticio = ({ route }) => {
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image style={styles.imagemcomercio} source={require('../../assets/humanos.png')} />
-          <View style={styles.overlayimagemcomercio} />
           <TouchableOpacity style={styles.iconvoltar} onPress={() => navigation.pop()}>
             <Ionicons name="arrow-back" size={50} color="#1C88C9" />
           </TouchableOpacity>
         </View>
 
         <View style={styles.paper}>
-          {/* Exibindo os dados do comércio */}
           <Text style={styles.nomecomercio}>{comercio.nome}</Text>
           <Text style={styles.categoriacomercio}>{comercio.cidade}</Text>
           <Text style={styles.enderecocomercio}>{comercio.rua}</Text>
           <Text style={styles.enderecocomercio}>{comercio.numero}</Text>
 
-          {/* Exibir as avaliações */}
-          <View style={styles.notavaliacoes}>
-            <View style={styles.row}>
-              <Ionicons style={styles.icon} name="eye" size={30} color="#83a9c0" />
-              <Ionicons style={styles.icon} name="walk" size={30} color="#83a9c0" />
-              <Ionicons style={styles.icon} name="ear" size={30} color="#83a9c0" />
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.legend}>Média Visual: {comercio.avalia_visual}</Text>
-              <Text style={styles.legend}>Média Física: {comercio.avalia_fisica}</Text>
-              <Text style={styles.legend}>Média Auditiva: {comercio.avalia_auditiva}</Text>
-            </View>
-          </View>
-
           <Text style={styles.avaliacoes}>Últimas avaliações:</Text>
-
-          {/* Exibindo as avaliações */}
-          {comercio.avaliacoes && comercio.avaliacoes.length > 0 ? (
-            comercio.avaliacoes.map((avaliacao, index) => (
+          {avaliacoes && avaliacoes.length > 0 ? (
+            avaliacoes.map((avaliacao, index) => (
               <View key={index} style={styles.review}>
-                <Ionicons name="person-circle" size={30} color="#1C88C9" style={styles.iconereview}/>
-                <Text style={styles.reviewname}>{avaliacao.usuario}</Text>
-                <Text style={styles.reviewtext}>{avaliacao.feedback}</Text>
+                <Ionicons name="person-circle" size={30} color="#1C88C9" />
+                <Text style={styles.reviewname}>{avaliacao.avalia_visual}</Text>
+                
               </View>
             ))
           ) : (

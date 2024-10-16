@@ -1,112 +1,110 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa', // Fundo claro
+  },
 
-    contentContainer: {
-      paddingVertical: 20
-    },
+  contentContainer: {
+    paddingVertical: 20,
+  },
 
-    scrollContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    searchbar:{
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: '#fff',
-      width: 320,
-      height: 50,
-      paddingLeft: 40,
-      borderRadius: 15,
-      marginBottom: 40,
-      top: 85,
-      fontFamily: 'Rubik',
-      borderWidth: 1,
-      borderColor: '#7b7b7b',
-      alignSelf:'center'
-    },
+  scrollContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-    iconsearch:{
-      left: 45,
-      top:7
-    },
+  searchbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    width: '90%', // Para se ajustar melhor em telas
+    height: 50,
+    paddingLeft: 40,
+    borderRadius: 15,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#7b7b7b',
+    alignSelf: 'center',
+    elevation: 5, // Sombreamento
+  },
 
-    iconvoltar: {
-      position: 'absolute',
-      top: 40,
-      left: 10,
-    },
+  iconsearch: {
+    position: 'absolute', // Melhora a posição do ícone
+    left: 10,
+    top: 14,
+  },
 
-    item: {
-        width: 360,
-        height: 130,
-        margin: 10,
-        borderRadius: 20,
-        alignSelf:'center',
-        top:50,
-        paddingLeft:30,
-    },
-    imgitem:{
-      width:80,
-      height:80,
-      top:35,
-      transform:[{scale:1.3}],
-      borderRadius:5   
-    },
-    nomeitem:{
-      color:'#1C88C9',
-      fontSize: 20,
-      fontFamily: 'Rubik',
-      textAlign:'left',
-      left:105,
-      top:-60
-    },
+  iconvoltar: {
+    position: 'absolute',
+    top: 40,
+    left: 10,
+  },
 
-    conteudoitem:{
+  griditem: {
+    flex: 1,
+    alignItems: 'center', // Centraliza o item
+  },
 
+  item: {
+    width: '90%', // Para melhor responsividade
+    height: 130,
+    margin: 10,
+    borderRadius: 20,
+    backgroundColor: '#fff', // Fundo branco
+    shadowColor: '#000', // Sombra
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    categoriaitem:{
-      textAlign:'left',
-      color:'#1C88C9',
-      fontFamily:'Rubik',
-      top:-71,
-      left:125
-    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5, // Sombra para Android
+    padding: 15,
+  },
 
-    iconsitem:{
-      color:'#1C88C9',
-      alignSelf:'left',
-      left:105,
-      top:-55
-    },
+  nomeitem: {
+    color: '#1C88C9',
+    fontSize: 20,
+    fontFamily: 'Rubik',
+    textAlign: 'left',
+    marginBottom: 5, // Espaçamento abaixo do nome
+  },
 
-    item1:{
+  categoriaitem: {
+    textAlign: 'left',
+    color: '#6c757d', // Cor de texto mais suave
+    fontFamily: 'Rubik',
+    marginBottom: 5, // Espaçamento abaixo da categoria
+  },
 
-    },
-    item2:{
+  iconsitem: {
+    color: '#1C88C9',
+    marginRight: 5, // Espaçamento à direita do ícone
+  },
 
-    },
-    item3:{
+  iconbotao: {
+    alignSelf: 'center',
+    top: 20,
+  },
 
-    },
-    item4:{
+  textobotao: {
+    alignSelf: 'center',
+    fontSize: 16,
+    color: '#F3FBFF',
+    fontFamily: 'Rubik',
+  },
 
-    },
-    item5:{
-      marginBottom:50
-    },
-    iconbotao: {
-        alignSelf: 'center',
-        top: 20,
-    },
-    textobotao: {
-        alignSelf: 'center',
-        fontSize: 16,
-        top: 27,
-        color: '#F3FBFF',
-        fontFamily: 'Rubik'
-    }
+  review: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5, // Espaçamento vertical entre as avaliações
+  },
+
+  reviewfeedback: {
+    color: '#585858', // Cor do feedback
+    fontSize: 14,
+    marginLeft: 10, // Espaçamento à esquerda do feedback
+  },
 });

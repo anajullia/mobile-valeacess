@@ -23,14 +23,13 @@ export const styles = StyleSheet.create({
     top: 40,
     left: 10,
   },
-  paper: {
-    backgroundColor: '#F3FBFF',
-    width: '100%',
-    padding: 20,
-    borderRadius: 40,
-    alignItems: 'center',
-    marginTop: -50,
-    height: 900 // Defina a altura mínima conforme necessário
+
+  boxaval: {
+    width:350,
+    height:300,
+    marginLeft:0,
+    marginTop:10,
+    backgroundColor:'red'
   },
   nomecomercio: {
     fontSize: 24,
@@ -292,12 +291,7 @@ scrollViewreview: {
   marginVertical:20
 },
 
-boxaval: {
-  width:2000,
-  marginLeft:0,
-  marginTop:10,
-  backgroundColor:'red'
-},
+
 
   
 });

@@ -96,7 +96,7 @@ const ComercioAlimenticio = ({ route }) => {
           </Text>
 
           <Text style={styles.avaliacoes}>Últimas avaliações:</Text>
-          <ScrollView style={styles.boxaval}>
+          <View style={styles.boxaval}>
             {avaliacoes && avaliacoes.length > 0 ? (
               avaliacoes
                 .slice(-2) // Limita para as duas últimas avaliações
@@ -116,12 +116,12 @@ const ComercioAlimenticio = ({ route }) => {
                 Nenhuma avaliação encontrada.
               </Text>
             )}
-          </ScrollView>
+          </View>
         </View>
 
         <TouchableOpacity
           style={styles.botaoreview}
-          onPress={() => navigation.navigate("Denunciar")}
+          onPress={() => navigation.navigate("Denunciar", { comercio_id: id })}
         >
           <Text style={styles.textobotaoreview}>Faça sua denúncia</Text>
         </TouchableOpacity>

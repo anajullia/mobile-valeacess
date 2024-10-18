@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { styles } from './style';
+import React, { useEffect, useState } from "react";
+import { styles } from "./style";
 import {
   View,
   ScrollView,
@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core';
-import { useIsFocused } from '@react-navigation/native';
-import api from '../../../services/api';
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import { useIsFocused } from "@react-navigation/native";
+import api from "../../../services/api";
 
 const ComercioAlimenticio = ({ route }) => {
   const navigation = useNavigation();
@@ -76,39 +76,59 @@ const ComercioAlimenticio = ({ route }) => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.imageContainer}>
-          <Image style={styles.imagemcomercio} source={require('../../assets/humanos.png')} />
-          <TouchableOpacity style={styles.iconvoltar} onPress={() => navigation.pop()}>
+          <Image
+            style={styles.imagemcomercio}
+            source={require("../../assets/humanos.png")}
+          />
+          <TouchableOpacity
+            style={styles.iconvoltar}
+            onPress={() => navigation.pop()}
+          >
             <Ionicons name="arrow-back" size={50} color="#1C88C9" />
           </TouchableOpacity>
         </View>
 
         <View style={styles.paper}>
           <Text style={styles.nomecomercio}>{comercio.nome}</Text>
-          <Text style={styles.categoriacomercio}>{comercio.cidade}, Rua {comercio.rua}, Número {comercio.numero}</Text>
+          <Text style={styles.categoriacomercio}>
+            {comercio.cidade}, Rua {comercio.rua}, Número {comercio.numero}
+          </Text>
 
           <Text style={styles.avaliacoes}>Últimas avaliações:</Text>
-          {avaliacoes && avaliacoes.length > 0 ? (
-            avaliacoes.map((avaliacao, index) => (
-              <View key={index} style={styles.review}>
-                <Ionicons name="person-circle" size={30} color="#1C88C9" />
-                <Text style={styles.reviewname}>
-                  Média: {((avaliacao.avalia_visual + avaliacao.avalia_fisica + avaliacao.avalia_auditiva) / 3).toFixed(2)}
-                </Text>
-                <Text style={styles.reviewfeedback}>{avaliacao.feedback}</Text>
-              </View>
-            ))
-          ) : (
-            <Text style={{ color: "#585858" }}>Nenhuma avaliação encontrada.</Text>
-          )}
+          <ScrollView style>
+            {avaliacoes && avaliacoes.length > 0 ? (
+              avaliacoes.map((avaliacao, index) => (
+                <View key={index} style={styles.review}>
+                  <Ionicons name="person-circle" size={30} color="#1C88C9" />
+                  <Text style={styles.reviewname}>
+                    Média: {avaliacao.media_avaliacao}
+                  </Text>
+                  <Text style={styles.reviewfeedback}>
+                    {avaliacao.feedback}
+                  </Text>
+                </View>
+              ))
+            ) : (
+              <Text style={{ color: "#585858" }}>
+                Nenhuma avaliação encontrada.
+              </Text>
+            )}
+          </ScrollView>
         </View>
 
-        <TouchableOpacity style={styles.botaoreview} onPress={() => navigation.navigate("Denunciar")}>
-            <Text style={styles.textobotaoreview}>Faça sua denúncia</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.botaoreview}
+          onPress={() => navigation.navigate("Denunciar")}
+        >
+          <Text style={styles.textobotaoreview}>Faça sua denúncia</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity style={styles.botaoreview2} onPress={() => navigation.navigate("Avaliar")}>
-            <Text style={styles.textobotaoreview}>Faça sua review</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.botaoreview2}
+          onPress={() => navigation.navigate("Avaliar")}
+        >
+          <Text style={styles.textobotaoreview}>Faça sua review</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );

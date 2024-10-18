@@ -269,7 +269,7 @@ textobotaoreview:{
 
 reviewname:{
   fontSize: 16,
-  color: 'white',
+  color: 'black',
   fontFamily: 'Rubik',
   alignSelf: 'flex-start',
   marginTop: 10,

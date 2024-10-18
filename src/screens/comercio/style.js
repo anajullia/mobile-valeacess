@@ -291,5 +291,13 @@ iconereview:{
 scrollViewreview: {
   marginVertical:20
 },
+
+boxaval: {
+  width:2000,
+  marginLeft:0,
+  marginTop:10,
+  backgroundColor:'red'
+},
+
   
 });

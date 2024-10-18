@@ -1,1 +1,0 @@
-Essa API é a api do tcc do turno integral, favor não realizar alterações

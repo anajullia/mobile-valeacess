@@ -1,26 +1,34 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState, useEffect } from "react";
 import { styles } from "./style";
-import { TouchableOpacity, View, Text, Image, TextInput, Alert } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  TextInput,
+  Alert,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { showMessage } from "react-native-flash-message";
-import api from '../../../services/api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from "../../../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Avaliar() {
+export default function Avaliar({ route }) {
   const navigation = useNavigation();
+  const { comercio_id } = route.params; // Adicionando a extração do ID do comércio
   const [avalia_visual, setAvalia_Visual] = useState(0);
   const [avalia_fisica, setAvalia_Fisica] = useState(0);
   const [avalia_auditiva, setAvalia_Auditiva] = useState(0);
-  const [feedback, setFeedback] = useState("");  
+  const [feedback, setFeedback] = useState("");
   const [success, setSuccess] = useState(false);
-  const [usuarioId, setUsuarioId] = useState(null); // Para armazenar o ID do usuário
+  const [usuarioId, setUsuarioId] = useState(null);
 
   useEffect(() => {
     const checkLogin = async () => {
-      const user = await AsyncStorage.getItem('@user'); // Ajuste conforme necessário
+      const user = await AsyncStorage.getItem("@user"); // Ajuste conforme necessário
       if (user) {
-        setUsuarioId(user); // Armazena o ID do usuário logado
+        setUsuarioId(user);
       }
     };
 
@@ -39,52 +47,54 @@ export default function Avaliar() {
     setAvalia_Auditiva(rate);
   };
 
-  async function saveData() {            
+  async function saveData() {
     if (avalia_visual === 0 || avalia_fisica === 0 || avalia_auditiva === 0 || feedback === "") {
-      showMessage({
-        message: "Erro ao Salvar",
-        description: 'Preencha os Campos Obrigatórios!',
-        type: "warning",
-      });
-      return;
+        showMessage({
+            message: "Erro ao Salvar",
+            description: 'Preencha os Campos Obrigatórios!',
+            type: "warning",
+        });
+        return;
     }
 
     try {
-      const obj = {
-        avalia_visual: avalia_visual, 
-        avalia_fisica: avalia_fisica, 
-        avalia_auditiva: avalia_auditiva, 
-        feedback: feedback,
-        usuario_id: usuarioId // Adiciona o ID do usuário
-      };
+        const obj = {
+            avalia_visual: avalia_visual,
+            avalia_fisica: avalia_fisica,
+            avalia_auditiva: avalia_auditiva,
+            feedback: feedback,
+            usuario_id: usuarioId,
+            comercio_id: comercio_id 
+        };
 
-      const res = await api.post('apivaleacess/avaliar.php', obj);
+        console.log("Enviando dados para a API:", obj);
 
-      if (res.data.sucesso === false) {
+        const res = await api.post('apivaleacess/avaliar.php', obj); // Verifique o caminho completo da API
+
+        console.log("Resposta da API:", res); // Log completo da resposta
+        console.log("Dados recebidos da API:", res.data);
+
+        if (res.data.success === false) {
+            showMessage({
+                message: "Erro ao Salvar",
+                description: res.data.message || "Erro desconhecido",
+                type: "warning",
+            });
+            return;
+        }
+
         showMessage({
-          message: "Erro ao Salvar",
-          description: res.data.mensagem,
-          type: "warning",
-          duration: 3000,
+            message: "Salvo com Sucesso",
+            description: "Avaliado",
+            type: "success",
         });
-        return;
-      }
-
-      setSuccess(true);
-      showMessage({
-        message: "Salvo com Sucesso",
-        description: "Avaliado",
-        type: "success",
-        duration: 800,
-      });
-      navigation.navigate("Home");
+        navigation.navigate("Home");
 
     } catch (error) {
-      Alert.alert("Ops", "Alguma coisa deu errado, tente novamente.");
-      setSuccess(false);
+        console.log("Erro na chamada da API:", error.response ? error.response.data : error); // Verifique o erro completo
+        Alert.alert("Ops", "Algo deu errado, tente novamente.");
     }
-  }
-
+}
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -131,7 +141,7 @@ export default function Avaliar() {
                   style={styles.starButton}
                   value={avalia_fisica}
                 >
-                  <Image 
+                  <Image
                     source={
                       star <= avalia_fisica
                         ? require("../../assets/star_filled.png")

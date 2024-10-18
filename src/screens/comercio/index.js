@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { useIsFocused } from "@react-navigation/native";
 import api from "../../../services/api";
+import { useRoute } from "@react-navigation/native";
 
 const ComercioAlimenticio = ({ route }) => {
   const navigation = useNavigation();
@@ -95,19 +96,21 @@ const ComercioAlimenticio = ({ route }) => {
           </Text>
 
           <Text style={styles.avaliacoes}>Últimas avaliações:</Text>
-          <ScrollView style>
+          <ScrollView style={styles.boxaval}>
             {avaliacoes && avaliacoes.length > 0 ? (
-              avaliacoes.map((avaliacao, index) => (
-                <View key={index} style={styles.review}>
-                  <Ionicons name="person-circle" size={30} color="#1C88C9" />
-                  <Text style={styles.reviewname}>
-                    Média: {avaliacao.media_avaliacao}
-                  </Text>
-                  <Text style={styles.reviewfeedback}>
-                    {avaliacao.feedback}
-                  </Text>
-                </View>
-              ))
+              avaliacoes
+                .slice(-2) // Limita para as duas últimas avaliações
+                .map((avaliacao, index) => (
+                  <View key={index} style={styles.review}>
+                    <Ionicons name="person-circle" size={30} color="#1C88C9" />
+                    <Text style={styles.reviewname}>
+                      Média: {avaliacao.media_avaliacao}
+                    </Text>
+                    <Text style={styles.reviewfeedback}>
+                      {avaliacao.feedback}
+                    </Text>
+                  </View>
+                ))
             ) : (
               <Text style={{ color: "#585858" }}>
                 Nenhuma avaliação encontrada.
@@ -125,9 +128,9 @@ const ComercioAlimenticio = ({ route }) => {
 
         <TouchableOpacity
           style={styles.botaoreview2}
-          onPress={() => navigation.navigate("Avaliar")}
+          onPress={() => navigation.navigate("Avaliar", { comercio_id: id })} // Passa o ID do comércio
         >
-          <Text style={styles.textobotaoreview}>Faça sua review</Text>
+          <Text style={styles.textobotaoreview}>Avaliar Comércio</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

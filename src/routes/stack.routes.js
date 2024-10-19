@@ -30,7 +30,7 @@ function StackNavigator(){
             <Stack.Screen name="Cadastro" component={Cadastro} />
             <Stack.Screen name="Mapa" component={Mapa} />
             <Stack.Screen name="ListaAlimenticio" component={ListaAlimenticio} />
-            <Stack.Screen name="ListaVendas" component={ListaAlimenticio} />
+            <Stack.Screen name="ListaVendas" component={ListaVendas} />
             <Stack.Screen name="Avaliar" component={Avaliar} />
             <Stack.Screen name="Denunciar" component={Denunciar} />
             <Stack.Screen name="Alimenticios" component={Alimenticios} />

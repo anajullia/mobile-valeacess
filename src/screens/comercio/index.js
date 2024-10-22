@@ -102,7 +102,7 @@ const ComercioAlimenticio = ({ route }) => {
                 .slice(-2) // Limita para as duas últimas avaliações
                 .map((avaliacao, index) => (
                   <View key={index} style={styles.review}>
-                    <Ionicons name="person-circle" size={30} color="#1C88C9" />
+                    <Ionicons name="person-circle" size={30} color="#1C88C9" style={styles.icon}/>
                     <Text style={styles.reviewname}>
                       Média: {avaliacao.media_avaliacao}
                     </Text>
@@ -120,7 +120,7 @@ const ComercioAlimenticio = ({ route }) => {
         </View>
 
         <TouchableOpacity
-          style={styles.botaoreview}
+          style={styles.btdenun}
           onPress={() => navigation.navigate("Denunciar", { comercio_id: id })}
         >
           <Text style={styles.textobotaoreview}>Faça sua denúncia</Text>

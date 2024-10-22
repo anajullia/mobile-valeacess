@@ -28,8 +28,7 @@ export const styles = StyleSheet.create({
     width:350,
     height:300,
     marginLeft:0,
-    marginTop:10,
-    backgroundColor:'red'
+    marginTop:10
   },
   nomecomercio: {
     fontSize: 24,
@@ -44,6 +43,11 @@ export const styles = StyleSheet.create({
     color: '#1C88C9',
     fontFamily: 'Rubik',
     alignSelf: 'flex-start',
+  },
+
+  icon:{
+    position: 'absolute',
+    marginLeft: '-50px'
   },
 
   categoriacomercio: {
@@ -96,29 +100,29 @@ export const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
     borderRadius: 40,
-    alignItems: 'center',
     marginTop: -30,
     marginBottom:-20
   },
 
   botaoreview:{
-    backgroundColor: '#1C88C9',
+    backgroundColor: 'white',
     width: 250,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    top: 400,
+    position:'absolute'
   },
 
   botaorreview:{
-    backgroundColor: '#e0948d',
+    backgroundColor: '#fff',
     width: 250,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 40,
   },
 
   textobotaoreview:{
@@ -202,6 +206,8 @@ row: {
 },
 icon: {
   paddingHorizontal: 10,
+  marginLeft: -300,
+  marginTop: 30,
 },
 legend: {
   textAlign: 'center',
@@ -255,7 +261,18 @@ botaoreview2:{
   borderRadius: 10,
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: 520,
+  marginTop: 580,
+  marginLeft: 70,
+  position: 'absolute'
+},
+btdenun:{
+  backgroundColor: '#f76b60',
+  width: 250,
+  height: 50,
+  borderRadius: 10,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 640,
   marginLeft: 70,
   position: 'absolute'
 },
@@ -268,11 +285,11 @@ textobotaoreview:{
 
 reviewname:{
   fontSize: 16,
-  color: 'black',
+  color: '#83a9c0',
   fontFamily: 'Rubik',
   alignSelf: 'flex-start',
-  marginTop: 10,
-  left:10
+  marginTop: -25,
+  left:30
 },
 reviewtext:{
   fontSize: 14,
@@ -281,6 +298,15 @@ reviewtext:{
   alignSelf: 'flex-start',
   left:10
 },
+reviewfeedback:{
+  fontSize: 14,
+  color: '#83a9c0',
+  fontFamily: 'Rubik',
+  alignSelf: 'flex-start',
+  fontWeight: '100',
+  left:30
+},
+
 
 iconereview:{
   alignSelf: 'flex-start',

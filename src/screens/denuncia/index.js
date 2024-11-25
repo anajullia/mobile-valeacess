@@ -170,7 +170,7 @@ export default function Avaliar({ route }) {
   return (
     <View style={styles.container}>
     {image &&(
-      <Image source={{uri: image}} style={styles.image}></Image>
+      <Image source={{uri: image}}></Image>
     )}
 
     <TouchableOpacity

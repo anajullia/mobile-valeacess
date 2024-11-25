@@ -89,4 +89,12 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+
+  image: {
+    width: 200, // Largura padrão
+    height: 150, // Altura padrão
+    resizeMode: "cover", // Ajusta a imagem para cobrir a área definida
+    borderRadius: 10, // Adiciona bordas arredondadas
+    marginBottom: 10, // Espaço entre a imagem e outros elementos
+  },
 });

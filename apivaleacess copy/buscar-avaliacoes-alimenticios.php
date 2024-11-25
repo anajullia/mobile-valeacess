@@ -8,7 +8,6 @@ $postjson = json_decode(file_get_contents('php://input'), true);
 $query = $pdo->prepare("SELECT * from avaliacao");
 
 
-$querya
 // uima query pra cada avalia, ai dps disso, usa o avg / media res i media
 
 $query->execute();

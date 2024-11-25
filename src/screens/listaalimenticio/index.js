@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Image
 } from "react-native";
 
 import api from "../../../services/api";
@@ -80,13 +81,27 @@ export default function ListaAlimenticio() {
               <View style={styles.griditem} key={item.comercio_id}>
                 <TouchableOpacity
                   style={[styles.item, styles.item1]}
-                  onPress={() => navigation.navigate("ComercioAlimenticio", { id: item.comercio_id })} // Passando o ID do comércio
+                  onPress={() =>
+                    navigation.navigate("ComercioAlimenticio", {
+                      id: item.comercio_id,
+                    })
+                  } // Passando o ID do comércio
                 >
+                  <Image
+                    style={{ width: 100, height: 100 }}
+                    source={{
+                      uri: `http://10.68.36.111/apivaleacess/imagens/comercio_${item.comercio_id}.png`, // URL baseada no ID
+                    }}
+                  />
                   <Text style={styles.nomeitem}>{item.nome}</Text>
-                  <Ionicons name="star" size={17} style={styles.iconsitem} /> 
+                  <Ionicons name="star" size={17} style={styles.iconsitem} />
                   <Text style={styles.categoriaitem}>{item.media_total}</Text>
-                  <Text style={styles.categoriaitem}>Tipo: {item.categoria}</Text>
-                  <Text style={styles.categoriaitem}>Endereço: {item.cidade} - {item.rua}</Text>
+                  <Text style={styles.categoriaitem}>
+                    Tipo: {item.categoria}
+                  </Text>
+                  <Text style={styles.categoriaitem}>
+                    Endereço: {item.cidade} - {item.rua}
+                  </Text>
                 </TouchableOpacity>
               </View>
             ))

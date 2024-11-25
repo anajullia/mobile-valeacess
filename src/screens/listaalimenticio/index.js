@@ -9,7 +9,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
-  Image
+  Image,
 } from "react-native";
 
 import api from "../../../services/api";
@@ -76,7 +76,7 @@ export default function ListaAlimenticio() {
         />
 
         <View style={styles.itemlista}>
-          {Array.isArray(dados) && dados.length > 0 ? (
+          {Array.isArray(dados) && dados.length >= 0 ? (
             dados.map((item) => (
               <View style={styles.griditem} key={item.comercio_id}>
                 <TouchableOpacity
@@ -88,17 +88,14 @@ export default function ListaAlimenticio() {
                   } // Passando o ID do comércio
                 >
                   <Image
-                    style={{ width: 100, height: 100 }}
+                    style={{ width: 100, height: 100, marginLeft: 70, borderRadius:10 }}
                     source={{
-                      uri: `http://10.68.36.111/apivaleacess/imagens/comercio_${item.comercio_id}.png`, // URL baseada no ID
+                      uri: `http://10.68.36.111/apivaleacess/imagens/comercio_${item.comercio_id}.png?timestamp=${new Date().getTime()}`, // Adiciona um timestampaaa
                     }}
                   />
                   <Text style={styles.nomeitem}>{item.nome}</Text>
-                  <Ionicons name="star" size={17} style={styles.iconsitem} />
-                  <Text style={styles.categoriaitem}>{item.media_total}</Text>
-                  <Text style={styles.categoriaitem}>
-                    Tipo: {item.categoria}
-                  </Text>
+                  <Ionicons name="star" size={18} style={styles.iconsitem} />
+                  <Text style={styles.mediatotal}>{item.media_total}</Text>
                   <Text style={styles.categoriaitem}>
                     Endereço: {item.cidade} - {item.rua}
                   </Text>

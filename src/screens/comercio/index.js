@@ -11,18 +11,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { useIsFocused } from "@react-navigation/native";
 import api from "../../../services/api";
-import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { AppRegistry } from "react-native";
 import { PaperProvider, Button } from "react-native-paper";
-import App from "../../../App";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const ComercioAlimenticio = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const { id } = route.params;
+  const { id } = route.params; // Recebe o ID do comércio
   const [comercio, setComercio] = useState(null);
   const [avaliacoes, setAvaliacoes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,8 +49,6 @@ const ComercioAlimenticio = ({ route }) => {
       }
     } catch (error) {
       console.log("Erro ao buscar avaliações", error);
-    } finally {
-      setLoading(false); // Atualiza o estado de loading após a requisição
     }
   };
 
@@ -83,9 +78,12 @@ const ComercioAlimenticio = ({ route }) => {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.imageContainer}>
+            {/* Exibe a imagem dinâmica baseada no ID */}
             <Image
               style={styles.imagemcomercio}
-              source={require("../../assets/humanos.png")}
+              source={{
+                uri: `http://192.168.1.104/apivaleacess/imagens/comercio_${id}.png`,
+              }}
             />
             <TouchableOpacity
               style={styles.iconvoltar}
@@ -96,7 +94,6 @@ const ComercioAlimenticio = ({ route }) => {
           </View>
 
           <View style={styles.paper}>
-           
             <Text style={styles.nomecomercio}>{comercio.nome}</Text>
             <Text style={styles.categoriacomercio}>
               {comercio.cidade}, Rua {comercio.rua}, Número {comercio.numero}
@@ -135,8 +132,8 @@ const ComercioAlimenticio = ({ route }) => {
             icon={() => (
               <MaterialCommunityIcons
                 name="exclamation-thick"
-                size={24} // Ajuste o tamanho conforme necessário
-                color="white" // Substitua por qualquer cor que você desejar
+                size={24}
+                color="white"
               />
             )}
             style={styles.btdenun}
@@ -149,7 +146,7 @@ const ComercioAlimenticio = ({ route }) => {
 
           <TouchableOpacity
             style={styles.botaoreview2}
-            onPress={() => navigation.navigate("Avaliar", { comercio_id: id })} // Passa o ID do comércio
+            onPress={() => navigation.navigate("Avaliar", { comercio_id: id })}
           >
             <Text style={styles.textobotaoreview}>Avaliar Comércio</Text>
           </TouchableOpacity>

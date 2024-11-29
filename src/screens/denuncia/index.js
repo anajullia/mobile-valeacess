@@ -14,7 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { showMessage } from "react-native-flash-message";
 import api from "../../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 
 export default function Avaliar({ route }) {
   const navigation = useNavigation();
@@ -92,8 +92,8 @@ export default function Avaliar({ route }) {
       }
 
       showMessage({
-        message: "Salvo com Sucesso",
-        description: "Avaliado",
+        message: "Salvo com Sucesso!",
+        description: "Denunciado.",
         type: "success",
       });
       navigation.navigate("Home");
@@ -110,7 +110,7 @@ export default function Avaliar({ route }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -122,7 +122,7 @@ export default function Avaliar({ route }) {
   async function takePhoto() {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -148,7 +148,7 @@ export default function Avaliar({ route }) {
     formData.append("photo", { uri: image, name: filename, type });
 
     try {
-      const response = await fetch("http://10.68.36.111/imagem/upload.php", {
+      const response = await fetch("http://192.168.1.104/imagem/upload.php", {
         method: "POST",
         body: formData,
         headers: {
@@ -168,32 +168,120 @@ export default function Avaliar({ route }) {
   }
 
   return (
-    <View style={styles.container}>
-    {image &&(
-      <Image source={{uri: image}}></Image>
-    )}
+    <ScrollView>
+      <TouchableOpacity
+        style={styles.iconvoltar}
+        onPress={() => navigation.pop(1)}
+      >
+        <Ionicons name="arrow-back" size={50} color="#1C88C9" />
+      </TouchableOpacity>
+      <Text style={styles.titulo}>Denúncia de comercio</Text>
 
-    <TouchableOpacity
-      style={styles.button}
-      onPress={pickImageFromGallery}    
-    >
-        <Text style={styles.buttonText}>Escolha da Galeria</Text>
-    </TouchableOpacity>
+      <View style={styles.content}>
+        <View style={styles.categoryWrapper}>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.legenda}>Acessibilidade - Visual Parcial</Text>
+            <View style={styles.starsContainer}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <TouchableOpacity
+                  key={star}
+                  onPress={() => handleAvalia_Visual(star)}
+                  style={styles.starButton}
+                  value={avalia_visual}
+                >
+                  <Image
+                    source={
+                      star <= avalia_visual
+                        ? require("../../assets/star_filled.png")
+                        : require("../../assets/star_empty.png")
+                    }
+                    style={styles.starImage}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
 
-    <TouchableOpacity
-      style={styles.button}
-      onPress={takePhoto}    
-    >
-        <Text style={styles.buttonText}>Tirar Foto</Text>
-    </TouchableOpacity>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.legenda}>Acessibilidade - Física</Text>
+            <View style={styles.starsContainer}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <TouchableOpacity
+                  key={star}
+                  onPress={() => handleAvalia_Fisica(star)}
+                  style={styles.starButton}
+                  value={avalia_fisica}
+                >
+                  <Image
+                    source={
+                      star <= avalia_fisica
+                        ? require("../../assets/star_filled.png")
+                        : require("../../assets/star_empty.png")
+                    }
+                    style={styles.starImage}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
 
-    <TouchableOpacity
-      style={styles.button}
-      onPress={uploadImage}    
-    >
-        <Text style={styles.buttonText}>Salvar Imagem BD</Text>
-    </TouchableOpacity>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.legenda}>Acessibilidade - Auditiva</Text>
+            <View style={styles.starsContainer}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <TouchableOpacity
+                  key={star}
+                  onPress={() => handleAvalia_Auditiva(star)}
+                  value={avalia_auditiva}
+                  style={styles.starButton}
+                >
+                  <Image
+                    source={
+                      star <= avalia_auditiva
+                        ? require("../../assets/star_filled.png")
+                        : require("../../assets/star_empty.png")
+                    }
+                    style={styles.starImage}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        </View>
+      </View>
 
-  </View>
+      <TextInput
+        placeholder="Tem algum comentário a fazer? Digite aqui"
+        onChangeText={(text) => setFeedback(text)}
+        value={feedback}
+        style={styles.input}
+      />
+
+
+      <View style={styles.smallButtonContainer}>
+        <TouchableOpacity style={styles.smallButton} onPress={pickImageFromGallery}>
+          <Text style={styles.smallButtonText}>Galeria</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.smallButton} onPress={takePhoto}>
+          <Text style={styles.smallButtonText}>Foto</Text>
+        </TouchableOpacity>
+      </View>
+
+      {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+
+
+      <TouchableOpacity
+        style={styles.denunciarButton}
+        onPress={() => {
+          saveData();
+          uploadImage();
+        }}
+      >
+        <Text style={styles.buttonText}>Denunciar</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }

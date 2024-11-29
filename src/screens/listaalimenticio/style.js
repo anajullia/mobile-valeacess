@@ -58,11 +58,16 @@ export const styles = StyleSheet.create({
     },
     nomeitem:{
       color:'#1C88C9',
-      fontSize: 20,
+      fontSize: 18,
       fontFamily: 'Rubik',
       textAlign:'left',
-      left:105,
-      top:-60
+      paddingLeft:10,
+      left:200,
+      top:0,
+      position: 'absolute',
+       //backgroundColor: '#f0f',
+      width:250,
+      height:38 
     },
 
     conteudoitem:{
@@ -72,15 +77,35 @@ export const styles = StyleSheet.create({
       textAlign:'left',
       color:'#1C88C9',
       fontFamily:'Rubik',
-      top:-71,
-      left:125
+      position:'absolute',
+      left: 200,
+      top:30,
+      paddingLeft:10,
+      // backgroundColor: '#0f0',
+      width: 250
+    },
+
+    mediatotal:{
+      textAlign:'left',
+      color:'#1C88C9',
+      fontFamily:'Rubik',
+      position:'absolute',
+      left: 410,
+      top:2,
+      paddingLeft:10,
+       //backgroundColor: '#afa',
+      width: 40,
+      zIndex:3,
+      fontSize:15
     },
 
     iconsitem:{
       color:'#1C88C9',
-      alignSelf:'left',
-      left:105,
-      top:-55
+      left:388,
+      top:2,
+      //backgroundColor: '#c89c',
+      width:18,
+      position:'absolute'
     },
 
     item1:{

@@ -1,29 +1,26 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFB2B2", // Vermelho suave
+    backgroundColor: "#F3FBFF",
     alignItems: "center",
-    justifyContent: "center",
     paddingHorizontal: 40,
   },
 
   titulo: {
     fontSize: 24,
-    color: 'white',
+    color: '#1C88C9',
     fontFamily: 'Rubik',
     alignSelf: 'center',
-    position: 'absolute',
-    top: 100,
+    marginTop: 100, 
   },
+
   content: {
     alignItems: "flex-start",
     marginBottom: 20,
     marginVertical: 20,
-    position: 'absolute',
-    top: 130,
-    left: 42,
+    width: '100%',
   },
 
   input: {
@@ -34,51 +31,49 @@ export const styles = StyleSheet.create({
     height: 200,
     paddingLeft: 10,
     borderRadius: 15,
-    marginBottom: 40,
-    top: 440,
-    paddingTop: 3,
+    marginBottom: 20,
     fontFamily: 'Rubik',
     borderWidth: 1,
     borderColor: '#7b7b7b',
     alignSelf: 'center',
-    position: 'absolute',
-  },
-
-  botaoreview: {
-    backgroundColor: '#1C88C9',
-    width: 320,
-    height: 50,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: 680,
-    position: 'absolute',
-  },
-
-  textobotaoreview: {
-    fontSize: 16,
-    color: '#F3FBFF',
-    fontFamily: 'Rubik',
   },
 
   legenda: {
     fontSize: 16,
-    color: "white",
+    color: "#1C88C9",
     fontFamily: "Rubik",
     alignSelf: "flex-start",
     marginBottom: 5,
+    marginLeft: 10,
+
   },
 
-  iconvoltar: {
-    position: "absolute",
-    top: 40,
-    left: 10,
-    zIndex: 1,
+  smallButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 10,
+    width: "100%",
+    marginBottom: 20, // Para não sobrepor a imagem
+  },
+
+  smallButton: {
+    backgroundColor: "#1C88C9",
+    padding: 10,
+    borderRadius: 5,
+    width: "48%",
+    alignItems: "center",
+  },
+
+  smallButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontFamily: "Rubik",
   },
 
   starsContainer: {
     flexDirection: "row",
     marginVertical: 10,
+    marginLeft: 10,
   },
 
   starButton: {
@@ -88,5 +83,38 @@ export const styles = StyleSheet.create({
   starImage: {
     width: 40,
     height: 40,
+  },
+
+  imagePreview: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    marginVertical: 20,
+    alignSelf: 'center',  // Centraliza a imagem
+  },
+
+  iconvoltar: {
+    position: "absolute",
+    top: 40,
+    left: 10,
+    zIndex: 1,
+  },
+
+  // Botão Denunciar ajustado
+  denunciarButton: {
+    backgroundColor: '#1C88C9',  // Altere para backgroundColor
+    width: 320,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,  // Botão "Denunciar" na parte inferior,
+    alignSelf: 'center',
+  },
+
+  buttonText: {
+    fontSize: 16,
+    color: '#FFF',
+    fontFamily: 'Rubik',
   },
 });

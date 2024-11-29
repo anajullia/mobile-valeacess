@@ -73,17 +73,18 @@ export default function Home() {
 
         <View style={styles.containergrid}>
           <View style={styles.row}>
-            <Button
-            icon={() => (
-                <MaterialCommunityIcons name="food" size={90} color="white" style={styles.iconbotao} /> // Ajuste o tamanho aqui
-              )}
-            buttonColor="white"
-            accessibilityHint="Tela de comércios alimentícios"
-            style={styles.item}
-            onPress={() => navigation.navigate("ListaAlimenticio")}
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => navigation.navigate("ListaAlimenticio")}
             >
-              <Text style={styles.textobotao}>Alimentícios</Text>
-            </Button>
+              <Ionicons
+                name="fast-food"
+                size={80}
+                color="#F3FBFF"
+                style={styles.iconbotao}
+              />
+              <Text style={styles.textobotao}>Alimenticios</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.item}
@@ -118,12 +119,12 @@ export default function Home() {
               onPress={() => navigation.navigate("Mapa")}
             >
               <Ionicons
-                name="location-sharp"
+                name="person"
                 size={80}
                 color="#F3FBFF"
                 style={styles.iconbotao}
               />
-              <Text style={styles.textobotao}>Mapa & Rotas</Text>
+              <Text style={styles.textobotao}>Usuário</Text>
             </TouchableOpacity>
           </View>
         </View>
